@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.iu.notice.NoticeDTO;
 import com.iu.board.BoardDAO;
 import com.iu.board.BoardDTO;
 import com.iu.page.RowNumber;
 import com.iu.util.DBConnector;
+import com.oreilly.servlet.MultipartRequest;
 
 // implements BoardDAO 인터페이스 구현
 // 오버라이딩
@@ -47,24 +49,60 @@ public class NoticeDAO implements BoardDAO{
 			
 			DBConnector.disConnect(rs, st, con);
 			return ar;
-			return null;
 	}
 
 	@Override
 	public BoardDTO selectOne(int num) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = DBConnector.getConnect();
+		String sql="select * from notice where num=?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setInt(1, num);		
+		NoticeDTO nDTO = null;
+		ResultSet rs = st.executeQuery();
+		if(rs.next()) {
+			nDTO = new NoticeDTO();
+			nDTO.setNum(rs.getInt("num"));
+			nDTO.setTitle(rs.getString("title"));
+			nDTO.setContents(rs.getString("contents"));
+			nDTO.setWriter(rs.getString("writer"));
+			nDTO.setReg_date(rs.getDate("reg_date"));
+			nDTO.setHit(rs.getInt("hit"));
+		}
+		
+		DBConnector.disConnect(rs, st, con);
+		return nDTO;
 	}
 
+	//seq 가져오기
+	public int getNum() throws Exception{
+		Connection con = DBConnector.getConnect();
+		String sql = "select notice_seq.nextval from dual";
+		PreparedStatement st = con.prepareStatement(sql);
+		ResultSet rs = st.executeQuery();
+		rs.next();//한줄읽기위해 의미없이
+		int num = rs.getInt(1);//=int num = rs.getInt(notice_seq.nextval);
+		DBConnector.disConnect(rs, st, con);
+		return num;
+	} 
+	
+	
 	@Override
 	public int insert(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = DBConnector.getConnect();
+		String sql="insert into notice values (?, ?, ?, ?, sysdate, 0)";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setInt(1, boardDTO.getNum());
+		st.setString(2, boardDTO.getTitle());
+		st.setString(3, boardDTO.getContents());
+		st.setString(4, boardDTO.getWriter());
+		int result = st.executeUpdate();
+		DBConnector.disConnect(st, con);
+		return result;
 	}
 
 	@Override
 	public int update(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
+
 		return 0;
 	}
 
@@ -87,8 +125,7 @@ public class NoticeDAO implements BoardDAO{
 			int result = rs.getInt(1);
 			DBConnector.disConnect(rs, st, con);
 			return result;
-		}
-		return 0;
+		
 	}
 	
 }

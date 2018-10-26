@@ -1,7 +1,7 @@
 package com.iu.page;
 
 public class Search {
-	//검색어받아오려고
+	//검색어받아올거에요
 	private String kind;
 	private String search;
 	

@@ -26,7 +26,7 @@ public class MakePager {
 		return rowNumber;
 	}
 	
-	public pager makePage(int totalCount) {
+	public Pager makePage(int totalCount) {
 		//1. totalpage
 		int totalPage=totalCount/this.perPage;//멤버변수의perpage
 		if(totalCount%this.perPage !=0) {
@@ -55,12 +55,13 @@ public class MakePager {
 			lastNum = totalPage;
 		}
 		
-		pager pager = new pager();
+		Pager pager = new Pager();
 		pager.setCurBlock(curBlock);
 		pager.setTotalBlock(totalBlock);
 		pager.setStartNum(startNum);
 		pager.setLastNum(lastNum);
 		pager.setSearch(this.search);//ㅁㅁㅂㅅsearch
+		pager.setTotalPage(totalPage);
 		
 		return pager;
 	}

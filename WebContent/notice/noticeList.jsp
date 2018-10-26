@@ -1,4 +1,5 @@
-<%@page import="com.iu.page.pager"%>
+<%@page import="com.iu.board.BoardDTO"%>
+<%@page import="com.iu.page.Pager"%>
 <%@page import="java.util.List"%>
 <%@page import="com.iu.page.MakePager"%>
 <%@page import="com.iu.notice.NoticeDAO"%>
@@ -30,19 +31,9 @@
 	MakePager mk = new MakePager(curPage, search, kind);
 	List<BoardDTO> ar = boardDAO.selectList(mk.makeRow());
 	int totalCount = boardDAO.getCount(kind, search);/////////////////////////////////////////////////////////
-	response.setCharacterEncoding("UTF-8");
-	
-	String board = (String)request.getAttribute("board");
-	i(List<boar>)
 	
 	//page
 	Pager pager = mk.makePage(totalCount);
-	
-	request.setAttribute("list", ar); 
-	request.setAttribute("board", "notice");
-	
-	RequestDispatcher view = request.getRequestDispatcher("../board/boardList.jsp");
-	view.forward(request, response);
 	
 	
 %>
@@ -53,6 +44,83 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	
+	
+	<title>Insert title here</title>
+<%@ include file="../temp/bootStrap.jsp" %>
+</head>
+<body>
+<jsp:include page="../temp/header.jsp"></jsp:include>
+<div class="container-fluid">
+	<div class="row">
+		<h1>Notice</h1>
+	</div>
+	<div class="row">
+		<table class="table table-hover">
+			<tr>
+				<td>NUM</td>
+				<td>TITLE</td>
+				<td>WRITER</td>
+				<td>DATE</td>
+				<td>HIT</td>
+			</tr>
+			<% for(BoardDTO boardDTO: ar){ //ar에서 꺼낸 boardDTO%>
+			<tr>
+				<td><%=boardDTO.getNum()%></td>
+				<td><a href="./noticeSelectOne.jsp?num=<%=boardDTO.getNum()%>"><%=boardDTO.getTitle() %></td>
+				<td><%=boardDTO.getWriter() %></td>
+				<td><%=boardDTO.getReg_date() %></td>
+				<td><%=boardDTO.getHit()%></td>
+			</tr>
+			<%} %>
+		</table>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<ul class="pagination">
+			<li><a href="./noticeList.jsp?curPage=<%=1%>"><span class="glyphicon glyphicon-backward"></span></a></li>
+				<%if(pager.getCurBlock()>1){ %>
+					<li><a href="./noticeList.jsp?curPage=<%=pager.getStartNum()-1%>"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+				<%} %>
+			    <%for(int i=pager.getStartNum();i<=pager.getLastNum();i++){ %>
+					<li><a href="./noticeList.jsp?curPage=<%=i%>"><%=i%></a></li>
+			    <%} %>
+			    <%if(pager.getCurBlock() != pager.getTotalBlock()){ %>
+					<li><a href="./noticeList.jsp?curPage=<%=pager.getLastNum()+1%>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+			    <%} %>
+			<li><a href="./noticeList.jsp?curPage=<%=pager.getTotalPage()%>"><span class="glyphicon glyphicon-forward"></span></a></li>
+		</ul>
+	</div>
+</div>
 
+<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1">
+				<a href="./noticeWriteForm.jsp" class="btn btn-primary">Writer</a>
+			</div>
+		</div>
+	</div>
+
+<jsp:include page="../temp/footer.jsp"></jsp:include>
+</body>
+</html>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>
