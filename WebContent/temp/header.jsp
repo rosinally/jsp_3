@@ -11,14 +11,13 @@
       <a class="navbar-brand" href="<%=request.getContextPath()%>/index.jsp">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">			<!--noticeList.jsp? =  파라미터주겠다 -->
-        <li><a href="<%=request.getContextPath() %>/notice/noticeList.jsp">NOTICE</a></li>
-        <li><a href="<%= request.getContextPath()%>/member/memberList.jsp">MEMBER</a></li>
-        <li><a href="<%= request.getContextPath()%>/qna/qnaList.jsp">QNA</a></li>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="<%=request.getContextPath() %>/notice/noticeList.do">NOTICE</a></li>
+        <li><a href="<%= request.getContextPath()%>/member/memberList.do">MEMBER</a></li>
+        <li><a href="<%= request.getContextPath()%>/qna/qnaList.do">QNA</a></li>
         <li><a href="#pricing">PRICING</a></li>
         <li><a href="#contact">CONTACT</a></li>
       </ul>
     </div>
   </div>
 </nav>
-    

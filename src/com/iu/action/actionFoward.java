@@ -1,8 +1,8 @@
 package com.iu.action;
 
-public class actionFoward {
-	private boolean check;
-	private String path;
+public class ActionForward {
+	private boolean check; //true : forward, false : redirect
+	private String path;  // 요청 경로
 	
 	public boolean isCheck() {
 		return check;
@@ -16,4 +16,7 @@ public class actionFoward {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
+	
+	
 }

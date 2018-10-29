@@ -1,16 +1,17 @@
 package com.iu.page;
 
 public class RowNumber {
-
+	
 	private int startRow;
 	private int lastRow;
 	private Search search;
 	
-	public int getStarRow() {
+	
+	public int getStartRow() {
 		return startRow;
 	}
-	public void setStarRow(int starRow) {
-		this.startRow = starRow;
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
 	}
 	public int getLastRow() {
 		return lastRow;
@@ -25,4 +26,6 @@ public class RowNumber {
 		this.search = search;
 	}
 	
+	
+
 }

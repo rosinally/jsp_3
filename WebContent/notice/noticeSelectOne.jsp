@@ -5,45 +5,44 @@
 <%@page import="com.iu.notice.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	int num = Integer.parseInt(request.getParameter("num"));
 	NoticeDAO noticeDAO = new NoticeDAO();
-	BoardDTO boardDTO = noticeDAO.selectOne(num);
+	BoardDTO boardDTO=noticeDAO.selectOne(num);
 	FileDAO fileDAO = new FileDAO();
 	FileDTO fileDTO = new FileDTO();
 	fileDTO.setNum(num);
 	fileDTO.setKind("N");
-	
 	List<FileDTO> ar = fileDAO.selectList(fileDTO);
-%>
+%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title><!-- 파라미터가 넘어오는 것을 받아서 -->
-<jsp:include page="../../temp/bootStrap.jsp"></jsp:include>
+<title>Insert title here</title>
+<jsp:include page="../temp/bootStrap.jsp"></jsp:include>
 </head>
 <body>
-<jsp:include page="../../temp/header.jsp"></jsp:include>
-
+<jsp:include page="../temp/header.jsp"></jsp:include>
+	
 	<div class="container-fluid">
 		<div class="row">
-			<h1>TITLE : <%=boardDTO.getTitle() %></h1>
-			<h1>WRITER : <%=boardDTO.getWriter() %></h1>
-			<h1>Contents : <%=boardDTO.getContents() %></h1>
+			<h1>TITLE : <%= boardDTO.getTitle() %> </h1>
+			<h1>WRITER : <%= boardDTO.getWriter() %> </h1>
+			<h1>Contents : <%= boardDTO.getContents() %></h1>
 			<% for(FileDTO file : ar){ %>
-			<h3><a href="../upload/<%=file.getFname() %>"><%=file.getOname() %></a></h3>
+				<h3><a href="../upload/<%= file.getFname()%>"><%=file.getOname() %> </a></h3>
 			<%} %>
-		</div>
+		</div>	
 	</div>
 	<div>
-		<a href="./noticeList.do">List</a>
-		<a href="./noticeUpdateForm.do">Update</a>
-		<a href="./noticeDelete.do">Delete</a>
+		<a href="./noticeList.jsp">List</a>
+		<a href="./noticeUpdateForm.jsp">Update</a>
+		<a href="./noticeDelete.jsp">Delete</a>
 	</div>
-<jsp:include page="../../temp/footer.jsp"></jsp:include>
+	
+<jsp:include page="../temp/footer.jsp"></jsp:include>
 </body>
 </html>

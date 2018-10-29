@@ -12,14 +12,14 @@ public class FileDAO {
 	
 	public List<FileDTO> selectList(FileDTO fileDTO) throws Exception{
 		List<FileDTO> ar = new ArrayList<>();
-		Connection con =DBConnector.getConnect();
-		String sql = "select * from upload where num=? and kind=?";
+		Connection con = DBConnector.getConnect();
+		String sql ="select * from upload where num=? and kind=?";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setInt(1, fileDTO.getNum());
 		st.setString(2, fileDTO.getKind());
 		ResultSet rs = st.executeQuery();
 		while(rs.next()) {
-			fileDTO = new FileDTO(); //두개니까 객체도 두개 만들어야해용
+			fileDTO = new FileDTO();
 			fileDTO.setFnum(rs.getInt("fnum"));
 			fileDTO.setFname(rs.getString("fname"));
 			fileDTO.setOname(rs.getString("oname"));
@@ -28,14 +28,14 @@ public class FileDAO {
 			ar.add(fileDTO);
 		}
 		DBConnector.disConnect(rs, st, con);
-		return ar; //noticeSelectOne.jsp할때
+		return ar;
 	}
 	
 	public int insert(FileDTO fileDTO) throws Exception {
 		Connection con = DBConnector.getConnect();
 		
-		String sql="insert into upload values (file_seq.nextval, ?, ?, ?, ?)";
-		PreparedStatement st = con.prepareStatement(sql); //보내깅
+		String sql ="insert into upload values(file_seq.nextval, ?,?,?,?)";
+		PreparedStatement st = con.prepareStatement(sql);
 		st.setString(1, fileDTO.getFname());
 		st.setString(2, fileDTO.getOname());
 		st.setInt(3, fileDTO.getNum());
@@ -44,4 +44,5 @@ public class FileDAO {
 		DBConnector.disConnect(st, con);
 		return result;
 	}
+
 }

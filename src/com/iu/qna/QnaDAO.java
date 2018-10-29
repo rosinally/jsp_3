@@ -9,7 +9,7 @@ import com.iu.board.BoardReplyDTO;
 import com.iu.page.RowNumber;
 
 public class QnaDAO implements BoardDAO, BoardReply {
-	
+
 	@Override
 	public int reply(BoardReplyDTO boardReplyDTO) throws Exception {
 		// TODO Auto-generated method stub
@@ -21,7 +21,8 @@ public class QnaDAO implements BoardDAO, BoardReply {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	
 	@Override
 	public List<BoardDTO> selectList(RowNumber rowNumber) throws Exception {
 		// TODO Auto-generated method stub

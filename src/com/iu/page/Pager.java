@@ -1,4 +1,4 @@
-package com.iu.page; //운반하는 요소로 사용
+package com.iu.page;
 
 public class Pager {
 	
@@ -8,6 +8,8 @@ public class Pager {
 	private int startNum;
 	private int lastNum;
 	private Search search;
+	
+	
 	
 	public int getTotalPage() {
 		return totalPage;
@@ -45,4 +47,7 @@ public class Pager {
 	public void setSearch(Search search) {
 		this.search = search;
 	}
+	
+	
+
 }

@@ -1,7 +1,6 @@
 package com.iu.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,13 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.iu.board.BoardDTO;
-import com.iu.file.FileDAO;
-import com.iu.file.FileDTO;
-import com.iu.notice.NoticeDAO;
-import com.iu.page.MakePager;
-import com.iu.page.Pager;
-import com.iu.page.RowNumber;
+import com.iu.action.ActionForward;
+import com.iu.notice.NoticeService;
 
 /**
  * Servlet implementation class NoticeController
@@ -37,65 +31,27 @@ public class NoticeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//list, one, write, update, delete
-		// /notice/noticeList.do
-		// /notice/noticeSelectOne.do
-		// /notice/noticeWrite.do
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		
-		/*String path = request.getContextPath();
-		String info = request.getPathInfo();
-		String uri = request.getRequestURI();
-		StringBuffer url = request.getRequestURL();
+		String command = request.getPathInfo();
 		
-		System.out.println(path);
-		System.out.println(info);
-		System.out.println(uri);
-		System.out.println(url);*/
+		ActionForward actionFoward=null;
+		NoticeService noticeService = new NoticeService();
 		
-		String info = request.getPathInfo();
-		NoticeDAO nDAO = new NoticeDAO();
+		if(command.equals("/noticeList.do")) {
+			actionFoward = noticeService.selectList(request, response);
+		}else if(command.equals("/noticeSelectOne.do")) {
+			actionFoward = noticeService.selectOne(request, response);
+		}
 		
-		if(info.equals("/noticeList.do")) {
-			int curPage=1;
-			try {
-				curPage = Integer.parseInt(request.getParameter("curPage"));
-			}catch(Exception e) {
-				
-			}
-			String kind = request.getParameter("kind");
-			if(kind==null || kind.equals("")) {
-				kind="title";
-			}
-			String search = request.getParameter("search");
-			if(search==null) {
-				search="";
-			}
-			MakePager makePager = new MakePager(curPage, search, kind);
-			RowNumber rowNumber = makePager.makeRow();
-			
-			List<BoardDTO> ar = null;
-			Pager pager = null;
-			
-			try {
-				ar = nDAO.selectList(rowNumber);
-				int totalCount = nDAO.getCount(kind, search);
-				pager = makePager.makePage(totalCount);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			request.setAttribute("list", ar);
-			request.setAttribute("pager", pager);
-			RequestDispatcher view = request.getRequestDispatcher("../WEB-INF/notice/noticeList.jsp");
+		
+		
+		if(actionFoward.isCheck()) {
+			RequestDispatcher view = request.getRequestDispatcher(actionFoward.getPath());
 			view.forward(request, response);
-			
-		}else if(info.equals("/noticeSelectOne.do")) {
-			BoardDTO boardDTO = new BoardDTO();
-			FileDAO fileDAO = new FileDAO();
-			FileDTO fileDTO = new FileDTO();
-			/////////////////////////////////////////////////////////////////////////
 		}else {
-			
+			response.sendRedirect(actionFoward.getPath());
 		}
 		
 	}

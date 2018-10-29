@@ -2,7 +2,7 @@ package com.iu.board;
 
 import java.sql.Date;
 
-public class BoardDTO { //noticeDTO와 qnaDTO 겹치는 변수들
+public class BoardDTO {
 	private int num;
 	private String title;
 	private String contents;
@@ -46,4 +46,7 @@ public class BoardDTO { //noticeDTO와 qnaDTO 겹치는 변수들
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
+	
+
 }

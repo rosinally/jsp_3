@@ -1,12 +1,10 @@
 package com.iu.board;
 
 public class BoardReplyDTO extends BoardDTO {
-	//답글 들어가는 애읭 부모ㅓ가 됨 
 	
 	private int ref;
 	private int step;
 	private int depth;
-	
 	
 	public int getRef() {
 		return ref;
@@ -28,4 +26,5 @@ public class BoardReplyDTO extends BoardDTO {
 	}
 	
 	
+
 }
