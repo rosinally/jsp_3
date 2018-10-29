@@ -5,7 +5,7 @@
 <%@page import="com.iu.notice.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+  
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
@@ -24,10 +24,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title><!-- 파라미터가 넘어오는 것을 받아서 -->
-<jsp:include page="../temp/bootStrap.jsp"></jsp:include>
+<jsp:include page="../../temp/bootStrap.jsp"></jsp:include>
 </head>
 <body>
-<jsp:include page="../temp/header.jsp"></jsp:include>
+<jsp:include page="../../temp/header.jsp"></jsp:include>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -40,10 +40,10 @@
 		</div>
 	</div>
 	<div>
-		<a href="./noticeList.jsp">List</a>
-		<a href="./noticeUpdateForm.jsp">Update</a>
-		<a href="./noticeDelete.jsp">Delete</a>
+		<a href="./noticeList.do">List</a>
+		<a href="./noticeUpdateForm.do">Update</a>
+		<a href="./noticeDelete.do">Delete</a>
 	</div>
-<jsp:include page="../temp/footer.jsp"></jsp:include>
+<jsp:include page="../../temp/footer.jsp"></jsp:include>
 </body>
 </html>
