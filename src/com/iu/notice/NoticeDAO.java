@@ -100,15 +100,28 @@ public class NoticeDAO implements BoardDAO{
 
 	@Override
 	public int update(BoardDTO boardDTO) throws Exception {
+		Connection con = DBConnector.getConnect();
+		String sql ="update notice set title=?, contents=? where num=?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setString(1, boardDTO.getTitle());
+		st.setString(2, boardDTO.getContents());
+		st.setInt(3, boardDTO.getNum());
+		int result = st.executeUpdate();
 		
+		DBConnector.disConnect(st, con);
 		
-		return 0;
+		return result;
 	}
 
 	@Override
 	public int delete(int num) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = DBConnector.getConnect();
+		String sql="delete notice where num=?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setInt(1, num);
+		int result = st.executeUpdate();
+		DBConnector.disConnect(st, con);
+		return result;
 	}
 
 	@Override

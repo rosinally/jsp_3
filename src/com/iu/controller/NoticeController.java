@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.iu.action.ActionForward;
+import com.iu.action.ActionFoward;
 import com.iu.notice.NoticeService;
 
 /**
@@ -31,18 +31,26 @@ public class NoticeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		
+		String phone=request.getServletContext().getInitParameter("phone");
+		System.out.println(phone);
+		//  /notice/notice***.do
+		//  /notice***.do
 		String command = request.getPathInfo();
 		
-		ActionForward actionFoward=null;
+		//foward, redirect
+		ActionFoward actionFoward=null;
 		NoticeService noticeService = new NoticeService();
 		
 		if(command.equals("/noticeList.do")) {
 			actionFoward = noticeService.selectList(request, response);
 		}else if(command.equals("/noticeSelectOne.do")) {
 			actionFoward = noticeService.selectOne(request, response);
+		}else if(command.equals("/noticeWrite.do")) {
+			actionFoward = noticeService.insert(request, response);
+		}else if(command.equals("/noticeUpdate.do")) {
+			actionFoward = noticeService.update(request, response);
+		}else if(command.equals("/noticeDelete.do")) {
+			actionFoward = noticeService.delete(request, response);
 		}
 		
 		

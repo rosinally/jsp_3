@@ -26,3 +26,11 @@ public interface BoardDAO {
 	public int getCount(Search search)throws Exception;
 
 }
+
+
+
+
+
+
+
+

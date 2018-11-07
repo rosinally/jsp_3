@@ -8,11 +8,6 @@ import java.sql.SQLException;
 
 public class DBConnector {
 	
-/*	잘되는지 test
-  		public static void main(String[] args) throws Exception{
-		Connection con = DBConnector.getConnect();
-		System.out.println(con);
-	}*/
 	
 	public static Connection getConnect() throws Exception {
 		Connection con = null;
@@ -48,4 +43,5 @@ public class DBConnector {
 			e.printStackTrace();
 		}
 	}
+
 }
